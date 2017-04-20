@@ -25,10 +25,13 @@
 #include <string>
 #include <vector>
 #include <time.h>
+#include <stdlib.h>
+
 using namespace std;
 
 //Declarations
 void insertFakeCoin(vector<int> &v, int index);
+void findFakeCoin(vector<int> &v, int index);
 
 
 
@@ -57,3 +60,27 @@ void insertFakeCoin(vector<int> &v, int index){
     int r = rand() % index;
     v[r] = 1;
 }
+
+void findFakeCoin(vector<int> &v, int index){
+	size_t half = v.size() / 2;
+	vector<int> lo_temp(v.begin(), v.begin()+half);
+	vector<int> hi_temp(half + v.begin(), v.end());
+	bool found = false;
+	while (found == false){
+	//If found change found to true and change &v to that array
+	for (vector<int>::iterator it = lo_temp.begin() ; it != lo_temp.end(); ++it){
+			if (*it == 1){
+				found = true;
+				v = lo_temp;
+			}
+		}
+	for (vector<int>::iterator it = hi_temp.begin() ; it != hi_temp.end(); ++it){
+		if (*it == 1){
+				found = true;
+				v = hi_temp;
+			}
+		}
+	}	
+	
+}
+
